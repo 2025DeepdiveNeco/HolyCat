@@ -9,6 +9,7 @@ public class CatMove : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
+    
 
     //[Header("Aim")]
     //public bool lookAtMouse = true;
@@ -22,7 +23,7 @@ public class CatMove : MonoBehaviour
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
-    }
+    }    
 
     void FixedUpdate()
     {

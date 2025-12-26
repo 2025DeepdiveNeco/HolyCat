@@ -1,9 +1,10 @@
-using UnityEngine;
 using TMPro;
-using UnityEngine.UI; 
+using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI; 
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonBehaviour<GameManager>
 {
     [Header("UI 연결")]
     public Slider scoreGauge;       // 점수 게이지(Slider)
@@ -35,6 +36,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            Debug.Log("스페이스바 입력됨 (New Input System)");
+            AddScore(10);
+        }
         if (isGameOver) return;
 
         // 시간 차감
@@ -47,6 +53,7 @@ public class GameManager : MonoBehaviour
         {
             CheckGameOver();
         }
+        
     }
 
     // 시간 표시 업데이트
@@ -56,6 +63,7 @@ public class GameManager : MonoBehaviour
         timerText.text = "Time: " + seconds.ToString();
 
         if (currentTime <= 5f) timerText.color = Color.red; // 5초 남으면 빨간색
+        
     }
 
     // 점수 추가 
@@ -65,6 +73,7 @@ public class GameManager : MonoBehaviour
 
         currentScore += amount;
         scoreGauge.value = currentScore; // 게이지에 즉시 반영
+
         
     }
 
