@@ -20,6 +20,10 @@ public class GameManager : SingletonBehaviour<GameManager>
     private int currentScore = 0;
     private bool isGameOver = false;
 
+    private void Awake()
+    {
+        isDestroyOnLoad = true;
+    }
     void Start()
     {
         currentTime = totalTime;
@@ -36,11 +40,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            Debug.Log("스페이스바 입력됨 (New Input System)");
-            AddScore(10);
-        }
+        //if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+        //{
+        //    Debug.Log("스페이스바 입력됨 (New Input System)");
+        //    AddScore(10);
+        //}
         if (isGameOver) return;
 
         // 시간 차감

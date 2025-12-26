@@ -1,70 +1,134 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class CatMove : MonoBehaviour
 {
-    [Header("Move")]
+    [Header("ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½")]
     public float moveSpeed = 5f;
-
-    private Rigidbody2D rb;
     private Vector2 moveInput;
-    
+    private Rigidbody2D rb;
 
-    //[Header("Aim")]
-    //public bool lookAtMouse = true;
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ã°ï¿½ï¿½ï¿½)")]
+    public Transform visualTransform;    // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    public SpriteRenderer playerVisualSr; // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ SpriteRenderer
+    public float jumpForce = 6f;         // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    public float gravity = -16f;         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ (ï¿½ß·ï¿½)
+    public int defaultSortingOrder = 2;  // ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
+
+    private float verticalVelocity;      // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½
+    private float currentHeight;         // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private bool isGrounded = true;      // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+    private Vector3 visualOriginalPos;    // ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 
     void Awake()
     {
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê±ï¿½È­
         rb = GetComponent<Rigidbody2D>();
+
+        // Rigidbody2D ï¿½âº» ï¿½ï¿½ï¿½ï¿½ (Å¾ï¿½ï¿½ï¿½)
+        rb.gravityScale = 0;
+        rb.freezeRotation = true;
+
+        if (visualTransform != null)
+        {
+            visualOriginalPos = visualTransform.localPosition;
+
+            // ï¿½ï¿½ï¿½ï¿½ SpriteRendererï¿½ï¿½ ï¿½Î½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß´Ù¸ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
+            if (playerVisualSr == null)
+                playerVisualSr = visualTransform.GetComponent<SpriteRenderer>();
+        }
     }
 
-    // Move ¾×¼Ç ÄÝ¹é
-    public void OnMove(InputValue value)
+    void Update()
     {
-        moveInput = value.Get<Vector2>();
-    }    
+        // 1. ï¿½Ô·ï¿½ Ã³ï¿½ï¿½ (New Input System ï¿½ï¿½ï¿½)
+        HandleInput();
+
+        // 2. ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+        ApplyJumpPhysics();
+
+        // 3. ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        // FadeObstacle ï¿½ï¿½ï¿½ï¿½ ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù´Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾î¸¦ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (!isGrounded)
+        {
+            if (playerVisualSr.sortingOrder <= defaultSortingOrder)
+            {
+                playerVisualSr.sortingOrder = defaultSortingOrder + 1;
+            }
+        }
+    }
 
     void FixedUpdate()
     {
-        // ÀÌµ¿
-        Vector2 dir = moveInput.normalized;
-        rb.MovePosition(rb.position + dir * moveSpeed * Time.fixedDeltaTime);
-
-        // È¸Àü
-        //if (lookAtMouse)
-        //{
-        //    RotateToMouse();
-        //}
-        //else
-        //{
-        //    RotateToMoveDirection(dir);
-        //}
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ Ã³ï¿½ï¿½
+        rb.linearVelocity = moveInput * moveSpeed;
     }
 
-    //void RotateToMouse()
-    //{
-    //    if (Camera.main == null) return;
-    //    if (Mouse.current == null) return;
+    private void HandleInput()
+    {
+        // WASD ï¿½Ìµï¿½ ï¿½Ô·ï¿½ (Keyboard.current ï¿½ï¿½ï¿½)
+        Vector2 input = Vector2.zero;
+        var keyboard = Keyboard.current;
+        if (keyboard == null) return;
 
-    //    Vector3 mouseScreen = Mouse.current.position.ReadValue();
-    //    Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(mouseScreen);
-    //    mouseWorld.z = transform.position.z;
+        if (keyboard.wKey.isPressed) input.y += 1;
+        if (keyboard.sKey.isPressed) input.y -= 1;
+        if (keyboard.aKey.isPressed) input.x -= 1;
+        if (keyboard.dKey.isPressed) input.x += 1;
 
-    //    Vector2 dir = (mouseWorld - transform.position);
-    //    if (dir.sqrMagnitude <= 0.0001f) return;
+        moveInput = input.normalized;
 
-    //    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg -180f;
-    //    // ½ºÇÁ¶óÀÌÆ®°¡ À§(Up)À» º¸°í ÀÖ´Ù¸é -90 º¸Á¤, ¿À¸¥ÂÊ(Right)ÀÌ¶ó¸é »©Áö ¸»±â
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ (Space)
+        if (keyboard.spaceKey.wasPressedThisFrame && isGrounded)
+        {
+            StartJump();
+        }
+    }
 
-    //    rb.rotation = angle;
-    //}
+    private void StartJump()
+    {
+        isGrounded = false;
+        verticalVelocity = jumpForce;
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+    }
 
-    //void RotateToMoveDirection(Vector2 dir)
-    //{
-    //    if (dir.sqrMagnitude <= 0.0001f) return;
+    private void ApplyJumpPhysics()
+    {
+        if (isGrounded) return;
 
-    //    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
-    //    rb.rotation = angle;
-    //}
+        // ï¿½ß·ï¿½ ï¿½ï¿½ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
+        verticalVelocity += gravity * Time.deltaTime;
+        currentHeight += verticalVelocity * Time.deltaTime;
+
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (currentHeight <= 0)
+        {
+            currentHeight = 0;
+            verticalVelocity = 0;
+            isGrounded = true;
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
+        }
+
+        // 4. ï¿½Ú½ï¿½(ï¿½Ì¹ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Yï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (visualTransform != null)
+        {
+            visualTransform.localPosition = new Vector3(
+                visualOriginalPos.x,
+                visualOriginalPos.y + currentHeight,
+                visualOriginalPos.z
+            );
+        }
+    }
+
+    // [ï¿½ß¿ï¿½] FadeObstacleï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+    public bool IsJumping()
+    {
+        return !isGrounded;
+    }
+
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ê¿ï¿½ï¿½ ï¿½ï¿½ï¿½)
+    public float GetCurrentHeight()
+    {
+        return currentHeight;
+    }
 }
