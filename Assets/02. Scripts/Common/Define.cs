@@ -10,7 +10,7 @@ public class Define
     public enum ScoreTriggerType
     {
         None = 0,
-        OnDestroy,
-        OnHit,
+        OnDestroy = 1,
+        OnHit = 2,
     }
 }
