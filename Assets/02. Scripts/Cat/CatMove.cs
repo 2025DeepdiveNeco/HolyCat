@@ -4,140 +4,138 @@ using UnityEngine.InputSystem;
 
 public class CatMove : MonoBehaviour
 {
-    [Header("�̵� ����")]
+    [Header("이동 설정")]
     public float moveSpeed = 5f;
     private Vector2 moveInput;
     private Rigidbody2D rb;
+    private Animator anim;
 
-    [Header("���� ���� (�ð���)")]
-    public Transform visualTransform;    // ĳ���� �̹����� ����ִ� �ڽ� ������Ʈ
-    public SpriteRenderer playerVisualSr; // ĳ���� �̹����� SpriteRenderer
-    public float jumpForce = 6f;         // ���� ��
-    public float gravity = -16f;         // �������� �ӵ� (�߷�)
-    public int defaultSortingOrder = 2;  // ��� ĳ���� ���̾� ����
+    [Header("시각적 요소 (자식 오브젝트)")]
+    public Transform visualTransform;
+    public SpriteRenderer playerVisualSr;
+    private Vector3 visualOriginalPos;
 
-    private float verticalVelocity;      // ���� ���� �ӵ�
-    private float currentHeight;         // ���� ���� ����
-    private bool isGrounded = true;      // �ٴ� ���� Ȯ��
-    private Vector3 visualOriginalPos;    // �̹����� ó�� ���� ��ġ
+    [Header("점프 및 높이 설정")]
+    public float jumpForce = 6f;
+    public float gravity = -16f;
+    public int defaultSortingOrder = 2;
+    private float verticalVelocity;
+    private float currentHeight;
+    private bool isGrounded = true;
+    private bool isUnderObject = false; // 머리 위 장애물 체크
 
-    [Header("Water Step")]
-    [SerializeField] float waterStepOffSetDistance = 5f;
-    bool isWaterStep;
-    bool onWaterStep;
-    Vector2 startWaterStep;
+    [Header("공격 콤보 설정")]
+    public float comboWindow = 0.5f;
+    private int comboStep = 0;
+    private float lastAttackTime;
+
+    [Header("Water Step 설정")]
+    [SerializeField] float waterStepOffSetDistance = 1.5f; // 이펙트 생성 간격 (수정됨)
+    bool isWaterStep;  // 이펙트 생성 중인지
+    bool onWaterStep;  // 물 위에 있는지
+    Vector2 startWaterStep; // 이펙트 기준 위치
 
     public void OnWaterStep() => onWaterStep = true;
+    public void OffWaterStep() => onWaterStep = false; // 물에서 나갔을 때 호출용
 
     void Awake()
     {
-        // ������Ʈ �������� �� �ʱ�ȭ
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
 
-        // Rigidbody2D �⺻ ���� (ž���)
         rb.gravityScale = 0;
         rb.freezeRotation = true;
 
         if (visualTransform != null)
         {
             visualOriginalPos = visualTransform.localPosition;
-
-            // ���� SpriteRenderer�� �ν����Ϳ��� ���� ���ߴٸ� �ڵ����� ã��
             if (playerVisualSr == null)
                 playerVisualSr = visualTransform.GetComponent<SpriteRenderer>();
         }
 
         startWaterStep = transform.position;
-
     }
 
     void Update()
     {
-        // 1. �Է� ó�� (New Input System ���)
         HandleInput();
-
-        // 2. ���� ó��
         ApplyJumpPhysics();
+        UpdateVisuals();
 
-        // 3. ���̾� ���� ����
-        // FadeObstacle ���� �ۿ� ���� ���� ����� �ٴڿ� ������ ���̾ �⺻������ ����
-        if (!isGrounded)
+        // Water Step 로직 처리
+        if (onWaterStep && isGrounded)
         {
-            if (playerVisualSr.sortingOrder <= defaultSortingOrder)
-            {
-                playerVisualSr.sortingOrder = defaultSortingOrder + 1;
-            }
-        }
-
-        if(onWaterStep && isGrounded && !isWaterStep)
-        {
-            isWaterStep = true;
             WaterStep();
-        }
-    }
-
-    void WaterStep()
-    {
-        // TODO : Water Steop
-        if (waterStepOffSetDistance 
-            <= (startWaterStep - (Vector2)transform.position).magnitude)
-        {
-            startWaterStep = transform.position;
-            Instantiate(Resources.Load<GameObject>("Effect/ObjectEffect"), transform.position, Quaternion.identity);
-            isWaterStep = false;
         }
     }
 
     void FixedUpdate()
     {
-        // ���� ���� �̵� ó��
         rb.linearVelocity = moveInput * moveSpeed;
     }
 
     private void HandleInput()
     {
-        // WASD �̵� �Է� (Keyboard.current ���)
-        Vector2 input = Vector2.zero;
         var keyboard = Keyboard.current;
-        if (keyboard == null) return;
+        var mouse = Mouse.current;
+        if (keyboard == null || mouse == null) return;
 
-        if (keyboard.wKey.isPressed) input.y += 1;
-        if (keyboard.sKey.isPressed) input.y -= 1;
-        if (keyboard.aKey.isPressed) input.x -= 1;
-        if (keyboard.dKey.isPressed) input.x += 1;
+        // 1. 이동 처리
+        float x = (keyboard.dKey.isPressed ? 1 : 0) - (keyboard.aKey.isPressed ? 1 : 0);
+        float y = (keyboard.wKey.isPressed ? 1 : 0) - (keyboard.sKey.isPressed ? 1 : 0);
+        moveInput = new Vector2(x, y).normalized;
 
-        moveInput = input.normalized;
+        bool isMoving = moveInput.magnitude > 0;
+        anim.SetBool("IsMoving", isMoving);
 
-        // ���� �Է� (Space)
-        if (keyboard.spaceKey.wasPressedThisFrame && isGrounded)
+        if (isMoving)
         {
-            StartJump();
+            anim.SetFloat("DirX", x);
+            anim.SetFloat("DirY", y);
+            if (x != 0) playerVisualSr.flipX = (x > 0);
+        }
+
+        // 2. 점프 처리 (머리 위 체크)
+        if (keyboard.spaceKey.wasPressedThisFrame)
+        {
+            if (isGrounded && !isUnderObject)
+            {
+                StartJump();
+            }
+            else if (isUnderObject)
+            {
+                Debug.Log("머리 박음! 점프 불가");
+            }
+        }
+
+        // 3. 공격 처리
+        if (mouse.leftButton.wasPressedThisFrame)
+        {
+            HandleAttack();
         }
     }
 
     private void StartJump()
     {
         isGrounded = false;
-        verticalVelocity = jumpForce;        
+        verticalVelocity = jumpForce;
+        anim.SetTrigger("Jump");
     }
 
     private void ApplyJumpPhysics()
     {
         if (isGrounded) return;
 
-        // �߷� ���ӵ� ����
         verticalVelocity += gravity * Time.deltaTime;
         currentHeight += verticalVelocity * Time.deltaTime;
 
-        // ���� ����
         if (currentHeight <= 0)
         {
             currentHeight = 0;
             verticalVelocity = 0;
-            isGrounded = true;            
+            isGrounded = true;
         }
 
-        // 4. �ڽ�(�̹���) ������Ʈ�� Y�� ��ġ�� �����Ͽ� ����
         if (visualTransform != null)
         {
             visualTransform.localPosition = new Vector3(
@@ -148,15 +146,59 @@ public class CatMove : MonoBehaviour
         }
     }
 
-    // [�߿�] FadeObstacle���� ȣ���� �Լ�
-    public bool IsJumping()
+    private void HandleAttack()
     {
-        return !isGrounded;
+        if (Time.time - lastAttackTime > comboWindow)
+        {
+            comboStep = 0;
+        }
+
+        lastAttackTime = Time.time;
+        anim.SetInteger("Combo", comboStep);
+        anim.SetTrigger("Attack");
+
+        comboStep = (comboStep + 1) % 3;
+        rb.linearVelocity = Vector2.zero;
     }
 
-    // ���� ���̰� ���� (�ʿ�� ���)
-    public float GetCurrentHeight()
+    // --- Water Step 로직 ---
+    void WaterStep()
     {
-        return currentHeight;
+        float distance = Vector2.Distance(startWaterStep, transform.position);
+
+        if (distance >= waterStepOffSetDistance)
+        {
+            startWaterStep = transform.position;
+            // Resources/Effect/ObjectEffect 경로에 프리팹이 있어야 합니다.
+            GameObject effect = Resources.Load<GameObject>("Effect/ObjectEffect");
+            if (effect != null)
+            {
+                Instantiate(effect, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Debug.LogWarning("Water Step 이펙트를 찾을 수 없습니다: Effect/ObjectEffect");
+            }
+        }
     }
+
+    private void UpdateVisuals()
+    {
+        // 공중 상태일 때 정렬 순서 조정
+        if (!isGrounded)
+        {
+            if (playerVisualSr.sortingOrder <= defaultSortingOrder)
+            {
+                playerVisualSr.sortingOrder = defaultSortingOrder + 1;
+            }
+        }
+    }
+
+    // --- 외부 호출용 인터페이스 (FadeObstacle 등) ---
+
+    public bool IsJumping() => !isGrounded;
+
+    public void SetIsUnderObject(bool value) => isUnderObject = value;
+
+    public float GetCurrentHeight() => currentHeight;
 }

@@ -13,8 +13,14 @@ public class FadeObstacle : MonoBehaviour
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
-        originalColor = sr.color;
-        sr.sortingOrder = objectSortingOrder;
+        // 만약 본인에게 SpriteRenderer가 없다면 부모에서 찾음
+        if (sr == null) sr = GetComponentInParent<SpriteRenderer>();
+
+        if (sr != null)
+        {
+            originalColor = sr.color;
+            sr.sortingOrder = objectSortingOrder;
+        }
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -34,12 +40,14 @@ public class FadeObstacle : MonoBehaviour
             if (isOnTop)
             {
                 // [상태: 위] 플레이어는 위로, 오브젝트는 원래대로(알파 100%)
+                catMove.SetIsUnderObject(false);
                 catMove.playerVisualSr.sortingOrder = objectSortingOrder + 1;
                 sr.color = originalColor;
             }
             else
             {
                 // [상태: 아래] 플레이어는 아래로, 오브젝트는 투명하게
+                catMove.SetIsUnderObject(true);
                 catMove.playerVisualSr.sortingOrder = objectSortingOrder - 1;
                 sr.color = new Color(originalColor.r, originalColor.g, originalColor.b, fadeAlpha);
             }
@@ -50,16 +58,16 @@ public class FadeObstacle : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // 영역을 완전히 벗어나면 상태 초기화
-            isOnTop = false;
-            sr.color = originalColor;
-
             CatMove pc = other.GetComponent<CatMove>();
             if (pc != null)
             {
-                // 플레이어 레이어를 기본값으로 복구
+                isOnTop = false;
+                pc.SetIsUnderObject(false);
                 pc.playerVisualSr.sortingOrder = pc.defaultSortingOrder;
             }
+
+            // 오브젝트 색상 복구
+            if (sr != null) sr.color = originalColor;
         }
     }
 }

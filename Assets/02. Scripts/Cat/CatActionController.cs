@@ -57,7 +57,7 @@ public class CatActionController : MonoBehaviour
             comboStep = 0;
         }
 
-        if (Mouse.current.rightButton.wasPressedThisFrame) // абе╛ ╟Ь╟щ
+        if (Mouse.current.leftButton.wasPressedThisFrame) // абе╛ ╟Ь╟щ
         {
             lastAttackTime = Time.time;
 
