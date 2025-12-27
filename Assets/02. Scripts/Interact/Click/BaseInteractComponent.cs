@@ -36,9 +36,9 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
 
     public event Action OnInteractEnd;
 
-    void Awake()
+    protected virtual void Awake()
     {
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         SetObjectStat();
 
         durability = maxDurability;
@@ -51,13 +51,10 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
     {
         var objectData = DataTableManager.Instance.GetObjectData(objectID);
 
-        if (objectData != null)
-        {
-            maxDurability = objectData.MaxDurability;
-            triggerType = (ScoreTriggerType)objectData.ScoreTriggerType;
-            score = objectData.ScoreValue;
-            breakLevels = objectData.BreakLevels;
-        }
+        maxDurability = objectData.MaxDurability;
+        triggerType = (ScoreTriggerType)objectData.ScoreTriggerType;
+        score = objectData.ScoreValue;
+        breakLevels = objectData.BreakLevels;
     }
 
     protected virtual bool EnterInteract()
@@ -89,7 +86,7 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
 
     protected virtual void OnInteract()
     {
-        animator.SetTrigger("interact");
+        //animator.SetTrigger("interact");
         ReduceDurability(damage);
     }
 
@@ -97,7 +94,7 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
     {
         durability -= value;
 
-        StartCoroutine(Shake());
+        StartCoroutine(Damping());
 
         if (durability <= 0)
         {
@@ -114,7 +111,7 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
             GameManager.Instance.AddScore(score);
     }
 
-    System.Collections.IEnumerator Shake()
+    System.Collections.IEnumerator Damping()
     {
         float t = 0f;
 
@@ -129,7 +126,9 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
             yield return null;
         }
 
-        transform.localPosition = Vector3.zero;
+        if(durability > 0)
+            transform.localPosition = Vector3.zero;
+
         ExitInteract();
     }
 }

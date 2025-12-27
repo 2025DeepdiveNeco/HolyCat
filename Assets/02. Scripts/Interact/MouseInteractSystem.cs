@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using static UnityEngine.UI.Image;
+using UnityEngine.Rendering;
 
 public class MouseInteractSystem : MonoBehaviour
 {
@@ -10,10 +12,13 @@ public class MouseInteractSystem : MonoBehaviour
     [SerializeField] LayerMask interactableLayer;
     [SerializeField] LayerMask HoldLayer;
 
+    Collider[] buffer;
     IHoldable currentHold;
 
-    private void Update()
+    void Update()
     {
+        FindInteractable();
+
         if (Input.GetMouseButtonDown(0))
             TryInteract();
 
@@ -30,6 +35,22 @@ public class MouseInteractSystem : MonoBehaviour
         }
     }
 
+    void FindInteractable()
+    {
+        int hitCount = Physics.OverlapSphereNonAlloc(
+            transform.position,
+            interactRadius,
+            buffer,
+            interactableLayer
+        );
+
+        for(int i = 0; i < hitCount; i++)
+        {
+            Debug.Log(buffer[i].name);
+            buffer[i].GetComponent<Renderer>().material.SetFloat("_Thickness", 0.002f);
+        }
+    }
+
     void TryInteract()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -42,8 +63,6 @@ public class MouseInteractSystem : MonoBehaviour
         if (hit.collider != null)
         {
             IInteractable currentTarget = hit.collider.GetComponent<IInteractable>();
-            // CurrentState = InteractionState.Interacting;
-            //CurrentTarget.OnInteractionEnded += HandleInteractionEnded;
             currentTarget?.Interact();
         }
 
@@ -54,29 +73,6 @@ public class MouseInteractSystem : MonoBehaviour
             currentHold.Hold();
         }
     }
-
-    //public void HoldInteract()
-    //{
-    //    if (CurrentState == InteractionState.Interacting && CurrentTarget is IInteractStay stay)
-    //    {
-    //        stay.HoldInteract();
-    //        CurrentState = InteractionState.Holding;
-    //    }
-    //}
-    //void HandleInteractionEnded()
-    //{
-    //    if (CurrentTarget != null)
-    //        CurrentTarget.OnInteractionEnded -= HandleInteractionEnded;
-    //    EndInteract();
-    //}
-
-    //public void EndInteract()
-    //{
-    //    if (CurrentTarget != null) CurrentTarget.ExitInteract();
-    //    CurrentState = InteractionState.None;
-    //    InteractInvoke.Invoke(0);
-    //}
-
 
 #if UNITY_EDITOR
     [Header("Draw Gizmo")]

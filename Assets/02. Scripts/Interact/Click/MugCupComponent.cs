@@ -3,8 +3,13 @@ using UnityEngine;
 public class MugCupComponent : BaseInteractComponent
 {
     public float pushDistance = 2f;
-    public float pushSpeed = 8f;
+    public float pushSpeed = 5f;
     public Transform player;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     void OnEnable()
     {
@@ -25,7 +30,7 @@ public class MugCupComponent : BaseInteractComponent
         Vector2 end = start + dir * pushDistance;
 
         float t = 0f;
-        while (t < 1f)
+        while (t < 3f)
         {
             t += Time.deltaTime * pushSpeed;
             transform.position = Vector2.Lerp(start, end, t);
