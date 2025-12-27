@@ -19,7 +19,7 @@ public class MouseInteractSystem : MonoBehaviour
             TryInteract();
 
         if (Input.GetMouseButton(0) && currentHold != null)
-            currentHold.HoldUpdate();
+            currentHold.HoldUpdate(transform);
 
         if (Input.GetMouseButtonUp(0))
         {
@@ -50,7 +50,7 @@ public class MouseInteractSystem : MonoBehaviour
         if (hitHold.collider != null)
         {
             currentHold = hitHold.collider.GetComponent<IHoldable>();
-            currentHold.Hold();
+            currentHold.Hold(transform);
         }
     }
 
