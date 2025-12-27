@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/01. Scenes/Min.unity
     guid: 31eedcfab46302146a27a9bb3485c3d5
   - enabled: 1
+    path: Assets/01. Scenes/InGame 5.unity
+    guid: daab9cdf258533a4191a8f15e85844fb
+  - enabled: 1
     path: Assets/01. Scenes/Ik.unity
     guid: 16079b0d06b0e4249bd59c34a4dea02e
   m_configObjects:
