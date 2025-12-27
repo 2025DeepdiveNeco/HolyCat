@@ -1032,6 +1032,71 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1001 &1544882220
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 406712015733589750, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 406712015733589750, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 406712015733589750, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 406712015733589750, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 406712015733589750, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 406712015733589750, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 406712015733589750, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 406712015733589750, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 406712015733589750, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 406712015733589750, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1678262759258172670, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2019100686}
+    - target: {fileID: 4779038980459097160, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_Name
+      value: MugCup (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8382624846038360105, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
 --- !u!1 &1798403913
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,26 +1530,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 414900750965659506, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
-      propertyPath: m_Size.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 414900750965659506, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
-      propertyPath: m_Size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 414900750965659506, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -6593073655978668242, guid: ca8d77266fda84445857e898378a4174, type: 3}
-    - target: {fileID: 940384471378842813, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.4375
-      objectReference: {fileID: 0}
-    - target: {fileID: 940384471378842813, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.46875
-      objectReference: {fileID: 0}
     - target: {fileID: 1678262759258172670, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
       propertyPath: player
       value: 
@@ -1493,10 +1538,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MugCup
       objectReference: {fileID: 0}
-    - target: {fileID: 6139524400908158842, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 28abaec0b7e63a74b97f26ee0ddeda53, type: 2}
     - target: {fileID: 8382624846038360105, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1576,6 +1617,7 @@ SceneRoots:
   - {fileID: 1798403916}
   - {fileID: 1816074617}
   - {fileID: 3773422752625916335}
+  - {fileID: 1544882220}
   - {fileID: 72034323}
   - {fileID: 739178743}
   - {fileID: 699923561}

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static Define;
 
-public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
+public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
 {
     [Header("Object Setting")]
     ScoreTriggerType triggerType = ScoreTriggerType.None;

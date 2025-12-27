@@ -17,8 +17,6 @@ public class MouseInteractSystem : MonoBehaviour
 
     void Update()
     {
-        FindInteractable();
-
         if (Input.GetMouseButtonDown(0))
             TryInteract();
 
@@ -32,22 +30,6 @@ public class MouseInteractSystem : MonoBehaviour
                 currentHold.Release();
                 currentHold = null;
             }
-        }
-    }
-
-    void FindInteractable()
-    {
-        int hitCount = Physics.OverlapSphereNonAlloc(
-            transform.position,
-            interactRadius,
-            buffer,
-            interactableLayer
-        );
-
-        for(int i = 0; i < hitCount; i++)
-        {
-            Debug.Log(buffer[i].name);
-            buffer[i].GetComponent<Renderer>().material.SetFloat("_Thickness", 0.002f);
         }
     }
 

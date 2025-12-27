@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class BaseHoldComponent : MonoBehaviour, IHoldable
+public class BaseHoldComponent : BaseInteract, IHoldable
 {
 
     bool holding;
