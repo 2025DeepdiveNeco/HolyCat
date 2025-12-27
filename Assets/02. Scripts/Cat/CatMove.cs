@@ -22,7 +22,7 @@ public class CatMove : MonoBehaviour
     private float verticalVelocity;
     private float currentHeight;
     private bool isGrounded = true;
-    private bool isUnderObject = false; // 머리 위 장애물 체크
+    public bool isUnderObject = false; // 머리 위 장애물 체크
 
     [Header("공격 콤보 설정")]
     public float comboWindow = 0.5f;
@@ -170,7 +170,7 @@ public class CatMove : MonoBehaviour
         {
             startWaterStep = transform.position;
             // Resources/Effect/ObjectEffect 경로에 프리팹이 있어야 합니다.
-            GameObject effect = Resources.Load<GameObject>("Effect/ObjectEffect");
+            GameObject effect = Resources.Load<GameObject>("Water");
             if (effect != null)
             {
                 Instantiate(effect, transform.position, Quaternion.identity);
