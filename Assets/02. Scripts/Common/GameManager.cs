@@ -33,7 +33,6 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     void Start()
     {
-        FadeInOut.Instance.Fade(Color.black, 1f, 0f, 0.5f, 0f, true, false);
         currentTime = totalTime;
         currentStage = PlayerPrefs.HasKey("Stage") ? PlayerPrefs.GetInt("Stage") : 1;
         targetScore = DataTableManager.Instance.GetScoreData(currentStage).Gaol_Score;
@@ -121,6 +120,5 @@ public class GameManager : SingletonBehaviour<GameManager>
         PlayerPrefs.SetInt("Score", currentScore);
         // TODO 시간 저장할거임?
         SceneLoader.Instance.LoadWithDelay($"Stage{currentStage}", 2f);
-        FadeInOut.Instance.Fade(Color.black, 0f, 1f, 0.5f, 0f, false, false);
     }
 }
