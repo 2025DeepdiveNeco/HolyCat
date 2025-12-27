@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 4445463023709709591}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.73234, y: -4.2810802, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.68, y: 0.51, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -246,6 +246,5 @@ MonoBehaviour:
   requiredMove: 1.5
   slideDistance: 1.5
   maxDistance: 3
-  player: {fileID: 0}
   vertical: 0
   right: 1
