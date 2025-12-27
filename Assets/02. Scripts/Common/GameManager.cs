@@ -147,4 +147,9 @@ public class GameManager : SingletonBehaviour<GameManager>
         Time.timeScale = 1f;
         SceneManager.LoadScene("StageSelectScene");
     }
+
+    public void OnClickQuitButton()
+    {
+        Application.Quit();
+    }
 }
