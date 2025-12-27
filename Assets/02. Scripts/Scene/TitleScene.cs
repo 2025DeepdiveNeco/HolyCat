@@ -7,6 +7,10 @@ public class TitleScene : MonoBehaviour
     {
         SceneManager.LoadScene(2);
     }
+    public void GameExit()
+    {
+        Application.Quit();
+    }
 
 
 }
