@@ -114,6 +114,7 @@ MonoBehaviour:
   jumpForce: 3
   gravity: -16
   defaultSortingOrder: 2
+  waterStepOffSetDistance: 5
 --- !u!61 &692875807188545546
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -312,7 +313,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1075993247170539406, guid: 6d9ecba82d9fdd54581631d36520315a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

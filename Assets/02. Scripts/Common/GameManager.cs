@@ -11,6 +11,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     public TextMeshProUGUI timerText;
     public GameObject successPanel; // 성공 UI
     public GameObject failurePanel; // 실패 UI
+    [SerializeField] TextMeshProUGUI scoreText;
 
     [Header("게임 설정")]
     public float totalTime = 30f;   // 제한 시간
@@ -38,6 +39,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         successPanel.SetActive(false);
         failurePanel.SetActive(false);
         Time.timeScale = 1f; // 게임 속도 정상화
+        scoreText.text = "0";
     }
 
     void Update()
@@ -79,6 +81,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
         currentScore += amount;
         scoreGauge.value = currentScore; // 게이지에 즉시 반영
+        scoreText.text = currentScore.ToString();
     }
 
     // 게임 종료 판정
