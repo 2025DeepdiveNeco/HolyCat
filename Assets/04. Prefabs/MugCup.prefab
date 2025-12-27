@@ -280,7 +280,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.12, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -290,7 +290,7 @@ BoxCollider2D:
     drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.2, y: 1.1}
   m_EdgeRadius: 0
 --- !u!95 &6139524400908158842
 Animator:
@@ -328,14 +328,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MugCupComponent
   objectID: 1001
   damage: 10
+  cupType: 1
   durabilityGauge: {fileID: 1957385893960524862}
   amplitude: 0.3
   frequency: 20
   damping: 5
   duration: 0.5
+  destroyDelayTime: 0.5
   pushDistance: 2
   pushSpeed: 8
-  player: {fileID: 0}
+  gauge: {fileID: 2963584489555538056}
 --- !u!1 &4604902083359061021
 GameObject:
   m_ObjectHideFlags: 0

@@ -184,6 +184,7 @@ MonoBehaviour:
   openRequiredAngle: 60
   maxDistance: 3
   gauge: {fileID: 6780193802739549240}
+  duration: 5
 --- !u!61 &1243041586658788564
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -228,7 +229,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8, y: 1.27}
+  m_Size: {x: 1, y: 1.5}
   m_EdgeRadius: 0
 --- !u!1 &2803909434339819930
 GameObject:

@@ -12,7 +12,7 @@ public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
     [SerializeField] Define.CupType cupType = Define.CupType.None;
 
     [Header("Durability UI")]
-    [SerializeField] Image durabilityGauge;
+    [SerializeField] protected Image durabilityGauge;
 
     [Header("Component")]
     protected Animator animator;
@@ -155,7 +155,7 @@ public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
         var newGO = Resources.Load<GameObject>(EFFECT_OB_PATH);
         if(newGO.TryGetComponent<Effect>(out var effect))
         {
-            effect.Init(cupType);
+            effect.Init(cupType, transform);
         }
         Instantiate(newGO, transform.position, Quaternion.identity);
     }
