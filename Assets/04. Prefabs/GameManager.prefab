@@ -48,5 +48,5 @@ MonoBehaviour:
   timerText: {fileID: 0}
   successPanel: {fileID: 0}
   failurePanel: {fileID: 0}
-  totalTime: 5
+  totalTime: 30
   targetScore: 100

@@ -126,8 +126,8 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
             yield return null;
         }
 
-        if(durability > 0)
-            transform.localPosition = Vector3.zero;
+        //if(durability > 0)
+        //    transform.localPosition = Vector3.zero;
 
         ExitInteract();
     }

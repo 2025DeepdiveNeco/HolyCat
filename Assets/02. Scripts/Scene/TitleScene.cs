@@ -5,7 +5,7 @@ public class TitleScene : MonoBehaviour
 {
     public void OnClickStartButton()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
 

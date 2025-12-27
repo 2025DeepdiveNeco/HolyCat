@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01. Scenes/Ik.unity
     guid: 16079b0d06b0e4249bd59c34a4dea02e
+  - enabled: 1
+    path: Assets/01. Scenes/InGame.unity
+    guid: 0848bc0dea47a6f4fb94e05a3e5b7d0d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
