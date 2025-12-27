@@ -8819,7 +8819,7 @@ PrefabInstance:
       objectReference: {fileID: 204364568}
     - target: {fileID: 4577548047208374233, guid: 707d7e1ad5f6362489fe52188cfe7c26, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: RestartGame
+      value: NextStage
       objectReference: {fileID: 0}
     - target: {fileID: 4857925728977764830, guid: 707d7e1ad5f6362489fe52188cfe7c26, type: 3}
       propertyPath: m_IsActive
