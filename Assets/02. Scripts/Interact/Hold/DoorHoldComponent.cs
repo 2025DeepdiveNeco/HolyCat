@@ -1,12 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DoorHoldComponent : BaseHoldComponent
 {
     [SerializeField] float openRequiredAngle = 60f;
     [SerializeField] float maxDistance = 3f;
 
-    Vector2 startDir;
-    float accumulatedAngle = 0f;
+    [Header("Hold Gauge")]
+    [SerializeField] Image gauge;
+    [SerializeField] float duration = 5f;
+    float elapsed;
 
     bool opened = false;
 
@@ -14,8 +17,8 @@ public class DoorHoldComponent : BaseHoldComponent
     {
         base.OnHoldStart(ts);
 
-        startDir = (ts.position - transform.position).normalized;
-        accumulatedAngle = 0f;
+        gauge.fillAmount = 0f;
+        elapsed = 0f;
     }
 
     protected override void OnHolding(Transform ts)
@@ -28,19 +31,13 @@ public class DoorHoldComponent : BaseHoldComponent
             return;
         }
 
-        Vector2 curDir = (ts.position - transform.position).normalized;
+        elapsed += Time.deltaTime;
+        gauge.fillAmount = elapsed / duration;
 
-        float delta = Vector2.SignedAngle(startDir, curDir);
-
-        accumulatedAngle += delta;
-        startDir = curDir;
-
-        transform.rotation = Quaternion.Euler(0, 0, accumulatedAngle);
-
-
-        if (Mathf.Abs(accumulatedAngle) >= openRequiredAngle)
+        if (gauge.fillAmount >= 1)
         {
             OpenDoor();
+            gauge.gameObject.SetActive(false);
         }
     }
 
@@ -48,11 +45,13 @@ public class DoorHoldComponent : BaseHoldComponent
     {
         opened = true;
         Release();
+
+        // TODO : 타일맵 애니메이션? 작동
     }
 
     protected override void OnHoldReleased()
     {
         base.OnHoldReleased();
-        accumulatedAngle = 0;
+        gauge.fillAmount = 0f;
     }
 }
