@@ -35,10 +35,6 @@ public class MouseInteractSystem : MonoBehaviour
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        //var dis = mousePos - (Vector2)transform.position;
-        //if (dis.magnitude > interactRadius)
-        //    return;
-
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0f, interactableLayer);
         if (hit.collider != null)
         {

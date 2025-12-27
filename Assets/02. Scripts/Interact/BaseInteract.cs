@@ -7,7 +7,7 @@ public class BaseInteract : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             GetComponent<ITouchable>().Touchable();
-            GetComponent<Renderer>().material.SetFloat("_Thickness", 0.002f);
+            GetComponent<Renderer>().material.SetFloat("_Thickness", 0.003f);
         }
     }
 

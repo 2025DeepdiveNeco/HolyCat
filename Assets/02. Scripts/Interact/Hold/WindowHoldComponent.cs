@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WindowHoldComponent : BaseHoldComponent
 {
-    [SerializeField] float requiredMove = 1.5f;
+    [SerializeField] float requiredMove = 3f;
     [SerializeField] float slideDistance = 1.5f;
     [SerializeField] float maxDistance = 3f;
     [SerializeField] bool vertical;
