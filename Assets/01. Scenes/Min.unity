@@ -1050,6 +1050,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2009701114}
     - target: {fileID: 2568943202375872784, guid: f663c0e82b1a2a4429653aa9cab07c95, type: 3}
+      propertyPath: totalTime
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2568943202375872784, guid: f663c0e82b1a2a4429653aa9cab07c95, type: 3}
       propertyPath: scoreGauge
       value: 
       objectReference: {fileID: 237218644}

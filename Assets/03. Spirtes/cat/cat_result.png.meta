@@ -143,12 +143,12 @@ TextureImporter:
       name: cat_result_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 49
-        width: 26
-        height: 21
+        x: 0
+        y: 50
+        width: 30
+        height: 25
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -165,12 +165,12 @@ TextureImporter:
       name: cat_result_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 49
-        width: 26
-        height: 22
+        x: 30
+        y: 50
+        width: 30
+        height: 25
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -187,12 +187,12 @@ TextureImporter:
       name: cat_result_2
       rect:
         serializedVersion: 2
-        x: 62
-        y: 49
-        width: 26
-        height: 21
+        x: 60
+        y: 50
+        width: 30
+        height: 25
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -209,12 +209,12 @@ TextureImporter:
       name: cat_result_3
       rect:
         serializedVersion: 2
-        x: 92
-        y: 49
-        width: 26
-        height: 22
+        x: 90
+        y: 50
+        width: 30
+        height: 25
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -231,12 +231,12 @@ TextureImporter:
       name: cat_result_4
       rect:
         serializedVersion: 2
-        x: 2
-        y: 24
-        width: 27
-        height: 21
+        x: 0
+        y: 25
+        width: 30
+        height: 25
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -253,12 +253,12 @@ TextureImporter:
       name: cat_result_5
       rect:
         serializedVersion: 2
-        x: 32
-        y: 24
-        width: 27
-        height: 21
+        x: 30
+        y: 25
+        width: 30
+        height: 25
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -275,12 +275,12 @@ TextureImporter:
       name: cat_result_6
       rect:
         serializedVersion: 2
-        x: 62
-        y: 24
-        width: 27
-        height: 21
+        x: 60
+        y: 25
+        width: 30
+        height: 25
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -297,12 +297,12 @@ TextureImporter:
       name: cat_result_7
       rect:
         serializedVersion: 2
-        x: 92
-        y: 24
-        width: 25
-        height: 21
+        x: 90
+        y: 25
+        width: 30
+        height: 25
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -319,12 +319,12 @@ TextureImporter:
       name: cat_result_8
       rect:
         serializedVersion: 2
-        x: 122
-        y: 24
-        width: 25
-        height: 21
+        x: 120
+        y: 25
+        width: 30
+        height: 25
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -341,12 +341,12 @@ TextureImporter:
       name: cat_result_9
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 0
-        width: 25
-        height: 20
+        width: 30
+        height: 25
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -363,7 +363,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 68298d7d6687ef54295d6b2b466a310a
     internalID: 0
     vertices: []
     indices: 
@@ -371,7 +371,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":3.0},"gridSpriteSize":{"x":30.0,"y":25.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       cat_result_0: -1713971298998420755
       cat_result_1: 5820185918790851320
