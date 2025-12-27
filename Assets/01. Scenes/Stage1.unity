@@ -8670,7 +8670,11 @@ PrefabInstance:
       objectReference: {fileID: 204364568}
     - target: {fileID: 4577548047208374233, guid: 707d7e1ad5f6362489fe52188cfe7c26, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: RestartGame
+      value: NextStage
+      objectReference: {fileID: 0}
+    - target: {fileID: 4857925728977764830, guid: 707d7e1ad5f6362489fe52188cfe7c26, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5506990591931514589, guid: 707d7e1ad5f6362489fe52188cfe7c26, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -8680,9 +8684,33 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RestartGame
       objectReference: {fileID: 0}
+    - target: {fileID: 5646911777292615711, guid: 707d7e1ad5f6362489fe52188cfe7c26, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8133528802580542201, guid: 707d7e1ad5f6362489fe52188cfe7c26, type: 3}
       propertyPath: m_UiScaleMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8273478828016689096, guid: 707d7e1ad5f6362489fe52188cfe7c26, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8273478828016689096, guid: 707d7e1ad5f6362489fe52188cfe7c26, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8273478828016689096, guid: 707d7e1ad5f6362489fe52188cfe7c26, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: b7685c5278bf65c409e316e2987281b9, type: 3}
+    - target: {fileID: 8273478828016689096, guid: 707d7e1ad5f6362489fe52188cfe7c26, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416798393213336604, guid: 707d7e1ad5f6362489fe52188cfe7c26, type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8873331902729131514, guid: 707d7e1ad5f6362489fe52188cfe7c26, type: 3}
       propertyPath: m_Pivot.x

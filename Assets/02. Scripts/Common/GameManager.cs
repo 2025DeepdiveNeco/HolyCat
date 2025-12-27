@@ -56,6 +56,8 @@ public class GameManager : SingletonBehaviour<GameManager>
         //    Debug.Log("스페이스바 입력됨 (New Input System)");
         //    AddScore(10);
         //}
+        if (targetScore <= currentScore) CheckGameOver();   // 목표 점수 도달 시 게임 종료
+            
         if (isGameOver) return;
 
         // 시간 차감
@@ -95,7 +97,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     public void CheckGameOver()
     {
         isGameOver = true;
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
 
         int stageIdx = PlayerPrefs.GetInt("SelectedStage", 1);
 
