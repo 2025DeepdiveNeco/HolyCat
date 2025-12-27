@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 666cf7104ccd8154bad14d9ab8f58579
+guid: 1395e5af6bc5e524787f5b4d8adcda73
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7896794456334986345
-    second: dore_0
+      213: -4856684460749250905
+    second: jucie2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -96,40 +96,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dore_0
+      name: jucie2_0
       rect:
         serializedVersion: 2
-        x: 410
-        y: 13
-        width: 88
-        height: 505
-      alignment: 9
-      pivot: {x: 0.50415736, y: 0.9710904}
+        x: 6
+        y: 2
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 79311ede743f86290800000000000000
-      internalID: -7896794456334986345
+      spriteID: 7ae91eaf637999cb0800000000000000
+      internalID: -4856684460749250905
       vertices: []
       indices: 
       edges: []
@@ -138,8 +125,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dore_0: -7896794456334986345
+      jucie2_0: -4856684460749250905
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -15,21 +15,21 @@ public class BaseHoldComponent : BaseInteract, IHoldable
 
     public event Action OnHoldEnd;
 
-    public void Hold()
+    public void Hold(Transform ts)
     {
         if (!canTouch)
             return;
 
         holding = true;
-        OnHoldStart();
+        OnHoldStart(ts);
     }
 
-    public void HoldUpdate()
+    public void HoldUpdate(Transform ts)
     {
         if (!holding)
             return;
 
-        OnHolding();
+        OnHolding(ts);
     }
 
     public void Release()
@@ -42,12 +42,12 @@ public class BaseHoldComponent : BaseInteract, IHoldable
         OnHoldReleased();
     }
 
-    protected virtual void OnHoldStart()
+    protected virtual void OnHoldStart(Transform ts)
     {
         Debug.Log("Hold Ω√¿€");
     }
 
-    protected virtual void OnHolding()
+    protected virtual void OnHolding(Transform ts)
     {
 
     }

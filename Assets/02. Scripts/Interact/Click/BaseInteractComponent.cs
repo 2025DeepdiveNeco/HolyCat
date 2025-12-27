@@ -9,6 +9,7 @@ public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
     ScoreTriggerType triggerType = ScoreTriggerType.None;
     [SerializeField] int objectID;
     [SerializeField] int damage = 10;
+    [SerializeField] Define.CupType cupType = Define.CupType.None;
 
     [Header("Durability UI")]
     [SerializeField] Image durabilityGauge;
@@ -83,7 +84,7 @@ public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
         Interacting = false;
     }
 
-    public virtual void Interact()
+    public virtual void Interact(Transform ts)
     {
         if (!canTouch)
             return;
@@ -94,10 +95,10 @@ public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
         if (interactEnd)
             return;
 
-        OnInteract();
+        OnInteract(ts);
     }
 
-    protected virtual void OnInteract()
+    protected virtual void OnInteract(Transform ts)
     {
         //animator.SetTrigger("interact");
         ReduceDurability(damage);
@@ -149,5 +150,13 @@ public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
 
     protected void GameObjectDestroy() => Destroy(gameObject);
 
-    protected void OnEffect() => Instantiate(Resources.Load<GameObject>(EFFECT_OB_PATH), transform);
+    protected void OnEffect()
+    {
+        var newGO = Resources.Load<GameObject>(EFFECT_OB_PATH);
+        if(newGO.TryGetComponent<Effect>(out var effect))
+        {
+            effect.Init(cupType);
+        }
+        Instantiate(newGO, transform.position, Quaternion.identity);
+    }
 }

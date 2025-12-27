@@ -13,4 +13,11 @@ public class Define
         OnDestroy = 1,
         OnHit = 2,
     }
+
+    public enum CupType
+    {
+        None,
+        MugCup,
+        Jucie,
+    }
 }

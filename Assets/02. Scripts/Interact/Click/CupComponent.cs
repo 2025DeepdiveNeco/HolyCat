@@ -4,7 +4,7 @@ public class CupComponent : BaseInteractComponent
 {
     public float pushDistance = 2f;
     public float pushSpeed = 5f;
-    public Transform player;
+    Transform player;
 
     protected override void Awake()
     {
@@ -21,9 +21,15 @@ public class CupComponent : BaseInteractComponent
         OnInteractEnd -= StartPush;
     }
 
+    protected override void OnInteract(Transform ts)
+    {
+        base.OnInteract(ts);
+        player = ts;
+        animator.SetTrigger("broken");
+    }
+
     void StartPush()
     {
-
         StopAllCoroutines();
         StartCoroutine(Push());
     }
@@ -44,10 +50,8 @@ public class CupComponent : BaseInteractComponent
         }
 
         transform.position = end;
-        animator.SetTrigger("broken");
-        OnEffect();
 
-        yield return new WaitForSeconds(destroyDelayTime);
         GameObjectDestroy();
+        OnEffect();
     }
 }

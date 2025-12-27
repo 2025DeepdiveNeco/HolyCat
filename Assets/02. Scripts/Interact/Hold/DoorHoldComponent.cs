@@ -1,47 +1,43 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DoorHoldComponent : BaseHoldComponent
 {
     [SerializeField] float openRequiredAngle = 60f;
     [SerializeField] float maxDistance = 3f;
-    [SerializeField] Transform player;
 
-    Vector2 startDir;
-    float accumulatedAngle = 0f;
+    [Header("Hold Gauge")]
+    [SerializeField] Image gauge;
+    [SerializeField] float duration = 5f;
+    float elapsed;
 
     bool opened = false;
 
-    protected override void OnHoldStart()
+    protected override void OnHoldStart(Transform ts)
     {
-        base.OnHoldStart();
+        base.OnHoldStart(ts);
 
-        startDir = (player.position - transform.position).normalized;
-        accumulatedAngle = 0f;
+        gauge.fillAmount = 0f;
+        elapsed = 0f;
     }
 
-    protected override void OnHolding()
+    protected override void OnHolding(Transform ts)
     {
         if (opened) return;
 
-        if (Vector2.Distance(player.position, transform.position) > maxDistance)
+        if (Vector2.Distance(ts.position, transform.position) > maxDistance)
         {
             Release();
             return;
         }
 
-        Vector2 curDir = (player.position - transform.position).normalized;
+        elapsed += Time.deltaTime;
+        gauge.fillAmount = elapsed / duration;
 
-        float delta = Vector2.SignedAngle(startDir, curDir);
-
-        accumulatedAngle += delta;
-        startDir = curDir;
-
-        transform.rotation = Quaternion.Euler(0, 0, accumulatedAngle);
-
-
-        if (Mathf.Abs(accumulatedAngle) >= openRequiredAngle)
+        if (gauge.fillAmount >= 1)
         {
             OpenDoor();
+            gauge.gameObject.SetActive(false);
         }
     }
 
@@ -49,11 +45,13 @@ public class DoorHoldComponent : BaseHoldComponent
     {
         opened = true;
         Release();
+
+        // TODO : 타일맵 애니메이션? 작동
     }
 
     protected override void OnHoldReleased()
     {
         base.OnHoldReleased();
-        accumulatedAngle = 0;
+        gauge.fillAmount = 0f;
     }
 }

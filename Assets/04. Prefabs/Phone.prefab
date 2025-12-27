@@ -153,6 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DontTouchComponent
   objectID: 0
   damage: 10
+  cupType: 0
   durabilityGauge: {fileID: 6469474456234377419}
   amplitude: 0.3
   frequency: 20
@@ -272,7 +273,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.99, y: -2.69}
+  m_AnchoredPosition: {x: 0, y: 0.21}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &9034915578478349606

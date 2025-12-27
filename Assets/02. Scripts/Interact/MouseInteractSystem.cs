@@ -19,7 +19,7 @@ public class MouseInteractSystem : MonoBehaviour
             TryInteract();
 
         if (Input.GetMouseButton(0) && currentHold != null)
-            currentHold.HoldUpdate();
+            currentHold.HoldUpdate(transform);
 
         if (Input.GetMouseButtonUp(0))
         {
@@ -43,14 +43,14 @@ public class MouseInteractSystem : MonoBehaviour
         if (hit.collider != null)
         {
             IInteractable currentTarget = hit.collider.GetComponent<IInteractable>();
-            currentTarget?.Interact();
+            currentTarget?.Interact(transform);
         }
 
         RaycastHit2D hitHold = Physics2D.Raycast(mousePos, Vector2.zero, 0f, HoldLayer);
         if (hitHold.collider != null)
         {
             currentHold = hitHold.collider.GetComponent<IHoldable>();
-            currentHold.Hold();
+            currentHold.Hold(transform);
         }
     }
 

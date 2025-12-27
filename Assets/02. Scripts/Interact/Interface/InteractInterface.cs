@@ -1,9 +1,10 @@
 using System;
+using UnityEngine;
 
 public interface IInteractable : ITouchable
 {
     bool Interacting { get; }
-    void Interact();
+    void Interact(Transform ts);
 
     event Action OnInteractEnd;
 }
@@ -11,8 +12,8 @@ public interface IInteractable : ITouchable
 public interface IHoldable : ITouchable
 {
     bool Holding { get; }
-    void Hold();
-    void HoldUpdate();
+    void Hold(Transform ts);
+    void HoldUpdate(Transform ts);
     void Release();
 
     event Action OnHoldEnd;

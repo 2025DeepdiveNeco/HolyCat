@@ -6,7 +6,6 @@ public class WindowHoldComponent : BaseHoldComponent
     [SerializeField] float requiredMove = 1.5f;
     [SerializeField] float slideDistance = 1.5f;
     [SerializeField] float maxDistance = 3f;
-    [SerializeField] Transform player;
     [SerializeField] bool vertical;
     [SerializeField] int right = 0;
 
@@ -22,28 +21,28 @@ public class WindowHoldComponent : BaseHoldComponent
         allowDir = right == 1 ? transform.right : transform.right * -1;
     }
 
-    protected override void OnHoldStart()
+    protected override void OnHoldStart(Transform ts)
     {
-        base.OnHoldStart();
+        base.OnHoldStart(ts);
 
-        if (Vector2.Distance(player.position, transform.position) > maxDistance)
+        if (Vector2.Distance(ts.position, transform.position) > maxDistance)
             return;
 
-        startPlayerPos = player.position;
+        startPlayerPos = ts.position;
     }
 
-    protected override void OnHolding()
+    protected override void OnHolding(Transform ts)
     {
         if (opened)
             return;
 
-        if (Vector2.Distance(player.position, transform.position) > maxDistance)
+        if (Vector2.Distance(ts.position, transform.position) > maxDistance)
         {
             Release();
             return;
         }
 
-        Vector2 move = (Vector2)player.position - startPlayerPos;
+        Vector2 move = (Vector2)ts.position - startPlayerPos;
 
         float dotDir = Vector3.Dot(move.normalized, allowDir.normalized);
 
