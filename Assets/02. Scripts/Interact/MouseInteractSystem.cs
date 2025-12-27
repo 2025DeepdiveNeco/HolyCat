@@ -12,6 +12,12 @@ public class MouseInteractSystem : MonoBehaviour
 
     Collider[] buffer;
     IHoldable currentHold;
+    CatMove cat;
+
+    void Awake()
+    {
+        cat = GetComponent<CatMove>();
+    }
 
     void Update()
     {
@@ -33,6 +39,9 @@ public class MouseInteractSystem : MonoBehaviour
 
     void TryInteract()
     {
+        if (cat.isUnderObject)
+            return;
+
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0f, interactableLayer);
