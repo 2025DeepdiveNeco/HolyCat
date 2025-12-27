@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class CupComponent : BaseInteractComponent
 {
-    public float pushDistance = 2f;
-    public float pushSpeed = 5f;
+    [SerializeField] float pushDistance = 2f;
+    [SerializeField] float pushSpeed = 5f;
+    [SerializeField] GameObject gauge;
+
     Transform player;
+    int count = 0;
 
     protected override void Awake()
     {
@@ -24,12 +27,14 @@ public class CupComponent : BaseInteractComponent
     protected override void OnInteract(Transform ts)
     {
         base.OnInteract(ts);
+        count++;
         player = ts;
-        animator.SetTrigger("broken");
+        animator.SetInteger("broken", count);
     }
 
     void StartPush()
     {
+        gauge.SetActive(false);
         StopAllCoroutines();
         StartCoroutine(Push());
     }
