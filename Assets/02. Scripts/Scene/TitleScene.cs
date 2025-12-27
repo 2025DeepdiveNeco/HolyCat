@@ -7,7 +7,8 @@ public class TitleScene : MonoBehaviour
 {
     public void OnClickStartButton()
     {
-        SceneLoader.Instance.LoadWithDelay("Ik", 1.5f);
+        int index = PlayerPrefs.HasKey("Stage") ? PlayerPrefs.GetInt("Stage") : 1;
+        SceneLoader.Instance.LoadWithDelay($"Stage{index}", 1.5f);
     }
     public void GameExit()
     {

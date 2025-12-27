@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.SceneManagement;
 
 public class DataTableManager : SingletonBehaviour<DataTableManager>
 {
@@ -12,6 +13,7 @@ public class DataTableManager : SingletonBehaviour<DataTableManager>
         base.Init();
 
         LoadObjectDataTable();
+        LoadScoreDataTable();
     }
 
     #region Object_Data
@@ -44,6 +46,34 @@ public class DataTableManager : SingletonBehaviour<DataTableManager>
         return ObjectDataTable.Where(item => item.Object_ID == id).FirstOrDefault();
     }
     #endregion
+
+    #region Score_Data
+
+    private const string SCORE_DATA_TABLE = "ScoreDataTable";
+    private List<ScoreData> ScoreDataTable = new List<ScoreData>();
+
+    private void LoadScoreDataTable()
+    {
+        var parsedDataTable = CSVReader.Read($"{DATA_PATH}/{SCORE_DATA_TABLE}");
+
+        foreach (var data in parsedDataTable)
+        {
+            var scoreData = new ScoreData
+            {
+                Stage = Convert.ToInt32(data["Stage"]),
+                Gaol_Score = Convert.ToInt32(data["Gaol_Score"]),
+                MaxTime = Convert.ToInt32(data["MaxTime"]),
+            };
+
+            ScoreDataTable.Add(scoreData);
+        }
+    }
+
+    public ScoreData GetScoreData(int stage)
+    {
+        return ScoreDataTable.Where(item => item.Stage == stage).FirstOrDefault();
+    }
+    #endregion
 }
 
 public class ObjectData
@@ -54,4 +84,11 @@ public class ObjectData
     public int ScoreTriggerType;
     public int ScoreValue;
     public int BreakLevels;
+}
+
+public class ScoreData
+{
+    public int Stage;
+    public int Gaol_Score;
+    public int MaxTime;
 }
