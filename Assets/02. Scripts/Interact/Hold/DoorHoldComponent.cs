@@ -45,8 +45,6 @@ public class DoorHoldComponent : BaseHoldComponent
     {
         opened = true;
         Release();
-
-        // TODO : 타일맵 애니메이션? 작동
     }
 
     protected override void OnHoldReleased()

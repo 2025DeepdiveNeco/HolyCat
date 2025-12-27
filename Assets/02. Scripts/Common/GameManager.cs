@@ -14,12 +14,16 @@ public class GameManager : SingletonBehaviour<GameManager>
     [SerializeField] TextMeshProUGUI scoreText;
 
     [Header("게임 설정")]
-    public float totalTime = 30f;   // 제한 시간
-    public int targetScore = 100;   // 목표 점수
+    float totalTime = 300f;   // 제한 시간
+    public int targetScore;   // 목표 점수
+
+    [Header("Stage")]
+    int currentStage;
 
     private float currentTime;
     private int currentScore = 0;
     private bool isGameOver = false;
+
 
     protected override void Init()
     {
@@ -29,7 +33,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     void Start()
     {
+        FadeInOut.Instance.Fade(Color.black, 1f, 0f, 0.5f, 0f, true, false);
         currentTime = totalTime;
+        currentStage = PlayerPrefs.HasKey("Stage") ? PlayerPrefs.GetInt("Stage") : 1;
+        targetScore = DataTableManager.Instance.GetScoreData(currentStage).Gaol_Score;
+        Debug.Log($"목표 점수 :{targetScore} / 현재 Stage : {currentStage}");
 
         // 게이지 초기화
         scoreGauge.minValue = 0;
@@ -39,7 +47,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         successPanel.SetActive(false);
         failurePanel.SetActive(false);
         Time.timeScale = 1f; // 게임 속도 정상화
-        scoreText.text = "0";
+        scoreText.text = PlayerPrefs.HasKey("Score") ? PlayerPrefs.GetInt("Score").ToString() : "0";
     }
 
     void Update()
@@ -104,5 +112,15 @@ public class GameManager : SingletonBehaviour<GameManager>
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void NextStage()
+    {
+        currentStage++;
+        PlayerPrefs.SetInt("Stage", currentStage);
+        PlayerPrefs.SetInt("Score", currentScore);
+        // TODO 시간 저장할거임?
+        SceneLoader.Instance.LoadWithDelay($"Stage{currentStage}", 2f);
+        FadeInOut.Instance.Fade(Color.black, 0f, 1f, 0.5f, 0f, false, false);
     }
 }
