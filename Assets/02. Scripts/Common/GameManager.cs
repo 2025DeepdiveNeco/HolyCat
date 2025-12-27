@@ -95,15 +95,32 @@ public class GameManager : SingletonBehaviour<GameManager>
     public void CheckGameOver()
     {
         isGameOver = true;
-        Time.timeScale = 0f; // 게임 일시정지
+        Time.timeScale = 0f;
+
+        int stageIdx = PlayerPrefs.GetInt("SelectedStage", 1);
 
         if (currentScore >= targetScore)
         {
-            successPanel.SetActive(true); // 목표 달성 성공
+            // [성공]
+            successPanel.SetActive(true);
+
+            // 1. 현재 스테이지를 '완전 열림(2)' 상태로 저장
+            PlayerPrefs.SetInt($"Stage_{stageIdx}_State", 2);
+
+            // 2. 다음 스테이지가 있다면 '반쯤 열림(1)'으로 해금 (이미 클리어한 게 아니라면)
+            if (stageIdx < 5)
+            {
+                int nextState = PlayerPrefs.GetInt($"Stage_{stageIdx + 1}_State", 0);
+                if (nextState == 0)
+                    PlayerPrefs.SetInt($"Stage_{stageIdx + 1}_State", 1);
+            }
         }
         else
         {
-            failurePanel.SetActive(true); // 목표 달성 실패
+            // [실패]
+            failurePanel.SetActive(true);
+            // 실패 시에는 아무것도 저장하지 않으므로, 
+            // 선택 씬으로 돌아가면 자동으로 '반쯤 열림(1)' 상태가 유지됩니다.
         }
     }
 
@@ -120,5 +137,10 @@ public class GameManager : SingletonBehaviour<GameManager>
         PlayerPrefs.SetInt("Score", currentScore);
         // TODO 시간 저장할거임?
         SceneLoader.Instance.LoadWithDelay($"Stage{currentStage}", 2f);
+    }
+    public void GoToSelectScene()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("StageSelectScene");
     }
 }
