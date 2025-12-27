@@ -170,7 +170,7 @@ public class CatMove : MonoBehaviour
         {
             startWaterStep = transform.position;
             // Resources/Effect/ObjectEffect 경로에 프리팹이 있어야 합니다.
-            GameObject effect = Resources.Load<GameObject>("Effect/ObjectEffect");
+            GameObject effect = Resources.Load<GameObject>("Water");
             if (effect != null)
             {
                 Instantiate(effect, transform.position, Quaternion.identity);
