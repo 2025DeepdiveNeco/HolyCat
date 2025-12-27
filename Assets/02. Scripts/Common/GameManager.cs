@@ -33,9 +33,10 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     void Start()
     {
-        currentTime = totalTime;
         currentStage = PlayerPrefs.HasKey("Stage") ? PlayerPrefs.GetInt("Stage") : 1;
         targetScore = DataTableManager.Instance.GetScoreData(currentStage).Gaol_Score;
+        totalTime = DataTableManager.Instance.GetScoreData(currentStage).MaxTime;
+        currentTime = totalTime;
         Debug.Log($"목표 점수 :{targetScore} / 현재 Stage : {currentStage}");
 
         // 게이지 초기화
@@ -138,7 +139,8 @@ public class GameManager : SingletonBehaviour<GameManager>
         PlayerPrefs.SetInt("Stage", currentStage);
         PlayerPrefs.SetInt("Score", currentScore);
         // TODO 시간 저장할거임?
-        SceneLoader.Instance.LoadWithDelay($"Stage{currentStage}", 2f);
+        SceneManager.LoadScene($"Stage{currentStage}");
+        //SceneLoader.Instance.LoadWithDelay($"Stage{currentStage}", 1f);
     }
     public void GoToSelectScene()
     {
