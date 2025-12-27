@@ -6,10 +6,10 @@ public class JucieWater : MonoBehaviour
 
     void Awake()
     {
-        int index1 = Random.Range(0, 9);
-        int index2 = Random.Range(0, 9);
+        int index1 = Random.Range(0, 8);
+        int index2 = Random.Range(0, 8);
         if (index1 == index2) index2++;
-        index2 %= 9;
+        index2 %= 8;
 
         Instantiate(Resources.Load<GameObject>("Spike"), randomPos[index1].position, Quaternion.identity);
         Instantiate(Resources.Load<GameObject>("Spike"), randomPos[index2].position, Quaternion.identity);
